@@ -1,0 +1,74 @@
+[
+  {
+    "name": "test_list_1",
+    "function": "test_list_1",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_list_2",
+    "function": "test_list_2",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_weeks_1",
+    "function": "test_weeks_1",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_weeks_2",
+    "function": "test_weeks_2",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_weeks_3",
+    "function": "test_weeks_3",
+    "timeout": 10,
+    "points": 0
+  },
+  {
+    "name": "test_number_1",
+    "function": "test_number_1",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_number_2",
+    "function": "test_number_2",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_coins_1",
+    "function": "test_coins_1",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_coins_2",
+    "function": "test_coins_2",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_coins_3",
+    "function": "test_coins_3",
+    "timeout": 10,
+    "points": 0
+  },
+  {
+    "name": "test_count_1",
+    "function": "test_count_1",
+    "timeout": 10,
+    "points": 1
+  },
+  {
+    "name": "test_count_2",
+    "function": "test_count_2",
+    "timeout": 10,
+    "points": 1
+  }
+]
