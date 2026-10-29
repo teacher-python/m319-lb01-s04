@@ -58,11 +58,13 @@ def test_weeks_2(monkeypatch, capsys):
 
 
 def test_weeks_3(monkeypatch, capsys):
+    week_count = 11
     _, output = run_main(monkeypatch, capsys, 9, 4)
     if 'Tag' not in output:
         pytest.skip('SKIPPED wird aktuell erwartet')
+    expected = [f'Tage={int(week_count * 7)}']
     found = [line for line in output.splitlines() if line.startswith('Tag')]
-    assert not found
+    assert found == expected
 
 
 # Step 3: Process numbers
