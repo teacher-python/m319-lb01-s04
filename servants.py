@@ -12,3 +12,6 @@ def main():
     # TODO write your code here
 
     return servants  # DO NOT change, must be the last line of this function
+
+if __name__ == '__main__':
+    servants = main()
