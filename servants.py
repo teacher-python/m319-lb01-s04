@@ -7,7 +7,7 @@ def main():
     :return: list of servants with their number of coins
     """
 
-    servant_list = []    # DO NOT change the name of this variable. MUST BE the first line
+    servant_list = []    # DO NOT change this line. MUST BE the first line
 
     # TODO write your code here
 
