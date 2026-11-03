@@ -22,7 +22,7 @@ def test_setup(monkeypatch, capsys):
 def test_list_1(monkeypatch, capsys):
     result, _ = run_main(monkeypatch, capsys, 5, 3)
     if not result:
-        pytest.skip('Step 1 (Liste erstellen) noch nicht umgesetzt')
+        pytest.skip('Step 1 (Liste erstellen) noch nicht umgesetzt: Es wurde keine Liste (oder eine leere Liste) zurückgegeben')
     assert isinstance(result, list)
     assert len(result) == 5
 
@@ -30,7 +30,7 @@ def test_list_1(monkeypatch, capsys):
 def test_list_2(monkeypatch, capsys):
     result, _ = run_main(monkeypatch, capsys, 8, 2)
     if not result:
-        pytest.skip('Step 1 (Liste erstellen) noch nicht umgesetzt')
+        pytest.skip('Step 1 (Liste erstellen) noch nicht umgesetzt: Es wurde keine Liste (oder eine leere Liste) zurückgegeben')
     assert len(result) == 8
     assert all(isinstance(coins, int) and 0 <= coins <= 3 for coins in result)
 
@@ -41,7 +41,7 @@ def test_weeks_1(monkeypatch, capsys):
     week_count = 5
     _, output = run_main(monkeypatch, capsys, 10, week_count)
     if 'Woche' not in output:
-        pytest.skip('Step 2 (Ausgabe aller Wochen) noch nicht umgesetzt')
+        pytest.skip("Step 2 (Ausgabe aller Wochen) noch nicht umgesetzt: Im Output wurde 'Woche' nicht gefunden")
     expected = [f'Woche:{week}' for week in range(1, week_count + 1)]
     found = [line for line in output.splitlines() if line.startswith('Woche:')]
     assert found == expected
@@ -51,7 +51,7 @@ def test_weeks_2(monkeypatch, capsys):
     week_count = 7
     _, output = run_main(monkeypatch, capsys, 4, week_count)
     if 'Woche' not in output:
-        pytest.skip('Step 2 (Ausgabe aller Wochen) noch nicht umgesetzt')
+        pytest.skip("Step 2 (Ausgabe aller Wochen) noch nicht umgesetzt: Im Output wurde 'Woche' nicht gefunden")
     expected = [f'Woche:{week}' for week in range(1, week_count + 1)]
     found = [line for line in output.splitlines() if line.startswith('Woche:')]
     assert found == expected
@@ -61,7 +61,7 @@ def test_weeks_3(monkeypatch, capsys):
     week_count = 11
     _, output = run_main(monkeypatch, capsys, 9, 4)
     if 'Tag' not in output:
-        pytest.skip('SKIPPED wird aktuell erwartet')
+        pytest.skip("SKIPPED wird aktuell erwartet: Im Output wurde 'Tag' nicht gefunden")
     expected = [f'Tage={int(week_count * 7)}']
     found = [line for line in output.splitlines() if line.startswith('Tag')]
     assert found == expected
@@ -73,7 +73,7 @@ def test_number_1(monkeypatch, capsys):
     servant_count, week_count = 6, 6
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Nummer' not in output:
-        pytest.skip('Step 3 (Nummer verarbeiten) noch nicht umgesetzt')
+        pytest.skip("Step 3 (Nummer verarbeiten) noch nicht umgesetzt: Im Output wurde 'Nummer' nicht gefunden")
     found = [int(line.split(':')[1]) for line in output.splitlines() if line.startswith('Nummer:')]
     assert found == expected_numbers(servant_count, week_count)
 
@@ -82,7 +82,7 @@ def test_number_2(monkeypatch, capsys):
     servant_count, week_count = 12, 4
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Nummer' not in output:
-        pytest.skip('Step 3 (Nummer verarbeiten) noch nicht umgesetzt')
+        pytest.skip("Step 3 (Nummer verarbeiten) noch nicht umgesetzt: Im Output wurde 'Nummer' nicht gefunden")
     found = [int(line.split(':')[1]) for line in output.splitlines() if line.startswith('Nummer:')]
     assert found == expected_numbers(servant_count, week_count)
 
@@ -93,7 +93,7 @@ def test_coins_1(monkeypatch, capsys):
     servant_count, week_count = 13, 13
     result, _ = run_main(monkeypatch, capsys, servant_count, week_count)
     if not result or not any(isinstance(coins, int) and coins > 0 for coins in result):
-        pytest.skip('Step 4 (Münzen verteilen) noch nicht umgesetzt')
+        pytest.skip('Step 4 (Münzen verteilen) noch nicht umgesetzt: In der Liste wurde keine Münzanzahl grösser als 0 gefunden')
     assert result == expected_servants(servant_count, week_count)
 
 
@@ -101,14 +101,14 @@ def test_coins_2(monkeypatch, capsys):
     servant_count, week_count = 30, 8
     result, _ = run_main(monkeypatch, capsys, servant_count, week_count)
     if not result or not any(isinstance(coins, int) and coins > 0 for coins in result):
-        pytest.skip('Step 4 (Münzen verteilen) noch nicht umgesetzt')
+        pytest.skip('Step 4 (Münzen verteilen) noch nicht umgesetzt: In der Liste wurde keine Münzanzahl grösser als 0 gefunden')
     assert result == expected_servants(servant_count, week_count)
 
 
 def test_coins_3(monkeypatch, capsys):
     result, _ = run_main(monkeypatch, capsys, 17, 5)
     if not result or not any(isinstance(coins, str) for coins in result):
-        pytest.skip('SKIPPED wird aktuell erwartet')
+        pytest.skip('SKIPPED wird aktuell erwartet: In der Liste wurde kein String gefunden')
     assert all(isinstance(coins, int) for coins in result)
 
 
@@ -118,7 +118,7 @@ def test_count_1(monkeypatch, capsys):
     servant_count, week_count = 20, 20
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Diener' not in output:
-        pytest.skip('Step 5 (Diener zählen) noch nicht umgesetzt')
+        pytest.skip("Step 5 (Diener zählen) noch nicht umgesetzt: Im Output wurde 'Diener' nicht gefunden")
     assert f'{expected_count(servant_count, week_count)} Diener' in output
 
 
@@ -126,5 +126,5 @@ def test_count_2(monkeypatch, capsys):
     servant_count, week_count = 30, 6
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Diener' not in output:
-        pytest.skip('Step 5 (Diener zählen) noch nicht umgesetzt')
+        pytest.skip("Step 5 (Diener zählen) noch nicht umgesetzt: Im Output wurde 'Diener' nicht gefunden")
     assert f'{expected_count(servant_count, week_count)} Diener' in output
