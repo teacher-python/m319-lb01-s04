@@ -9,7 +9,7 @@ worked on actually run.
 """
 import pytest
 
-from test_helpers import expected_count, expected_numbers, expected_servants, run_main
+from test_helpers import check_count, expected_numbers, expected_servants, run_main
 
 
 # Step 0: Check the setup of this project
@@ -119,7 +119,7 @@ def test_count_1(monkeypatch, capsys):
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Diener' not in output:
         pytest.skip("Step 5 (Diener zählen) noch nicht umgesetzt: Im Output wurde 'Diener' nicht gefunden")
-    assert f'{expected_count(servant_count, week_count)} Diener' in output
+    check_count(output, servant_count, week_count)
 
 
 def test_count_2(monkeypatch, capsys):
@@ -127,4 +127,5 @@ def test_count_2(monkeypatch, capsys):
     _, output = run_main(monkeypatch, capsys, servant_count, week_count)
     if 'Diener' not in output:
         pytest.skip("Step 5 (Diener zählen) noch nicht umgesetzt: Im Output wurde 'Diener' nicht gefunden")
-    assert f'{expected_count(servant_count, week_count)} Diener' in output
+    check_count(output, servant_count, week_count)
+

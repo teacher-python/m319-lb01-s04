@@ -1,4 +1,6 @@
 """Shared helper functions for the servants.py test suite."""
+import pytest
+
 import servants
 
 
@@ -45,3 +47,11 @@ def expected_servants(servant_count, week_count):
 def expected_count(servant_count, week_count):
     """Number of servants having 1 or 2 coins at the end."""
     return sum(1 for coins in expected_servants(servant_count, week_count) if coins in (1, 2))
+
+
+def check_count(output, servant_count, week_count):
+    """Fails the test with a short message if the expected count line is missing."""
+    expected = f'{expected_count(servant_count, week_count)} Diener'
+    if expected not in output:
+        actual = next(line for line in output.splitlines() if 'Diener' in line)
+        pytest.fail(f"Expected Output: '{expected}' / Actual output: '{actual}'", pytrace=False)
