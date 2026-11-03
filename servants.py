@@ -6,8 +6,7 @@ def main():
     distributes coins to servants
     :return: list of servants with their number of coins
     """
-
-    servants = []    # DO NOT change the name of this variable. MUST BE the first line
+    servants = []    # DO NOT change this line. MUST BE the first line
 
     # TODO write your code here
 
