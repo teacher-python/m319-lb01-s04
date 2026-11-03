@@ -1,4 +1,6 @@
 """Shared helper functions for the servants.py test suite."""
+import random
+
 import pytest
 
 import servants
@@ -49,9 +51,61 @@ def expected_count(servant_count, week_count):
     return sum(1 for coins in expected_servants(servant_count, week_count) if coins in (1, 2))
 
 
+def random_inputs():
+    """Random (servant_count, week_count) within a range where every check is meaningful."""
+    return random.randint(5, 30), random.randint(3, 15)
+
+
+def inputs_text(servant_count, week_count):
+    """Describes the simulated inputs for failure messages."""
+    return f'Eingaben: {servant_count} Diener, {week_count} Wochen'
+
+
+def fail(servant_count, week_count, expected, actual, label='Output'):
+    """Fails the test with a short message containing the inputs."""
+    pytest.fail(
+        f"{inputs_text(servant_count, week_count)} / "
+        f"Expected {label}: '{expected}' / Actual {label}: '{actual}'",
+        pytrace=False
+    )
+
+
+def check_list(result, servant_count, week_count):
+    """Checks that the result is a list with one entry (0..3 coins) per servant."""
+    if not isinstance(result, list):
+        fail(servant_count, week_count, 'list', type(result).__name__, 'type')
+    if len(result) != servant_count:
+        fail(servant_count, week_count, servant_count, len(result), 'list length')
+    if not all(isinstance(coins, int) and 0 <= coins <= 3 for coins in result):
+        fail(servant_count, week_count, 'nur int-Werte von 0 bis 3', result, 'list')
+
+
+def check_weeks(output, servant_count, week_count):
+    """Checks that every week is printed as 'Woche:n'."""
+    expected = [f'Woche:{week}' for week in range(1, week_count + 1)]
+    found = [line for line in output.splitlines() if line.startswith('Woche:')]
+    if found != expected:
+        fail(servant_count, week_count, ', '.join(expected), ', '.join(found))
+
+
+def check_numbers(output, servant_count, week_count):
+    """Checks that all numbers are printed as 'Nummer:n' in the correct order."""
+    expected = expected_numbers(servant_count, week_count)
+    found = [int(line.split(':')[1]) for line in output.splitlines() if line.startswith('Nummer:')]
+    if found != expected:
+        fail(servant_count, week_count, expected, found, 'numbers')
+
+
+def check_coins(result, servant_count, week_count):
+    """Checks the coins of every servant."""
+    expected = expected_servants(servant_count, week_count)
+    if result != expected:
+        fail(servant_count, week_count, expected, result, 'list')
+
+
 def check_count(output, servant_count, week_count):
-    """Fails the test with a short message if the expected count line is missing."""
+    """Checks the line with the number of servants having 1 or 2 coins."""
     expected = f'{expected_count(servant_count, week_count)} Diener'
     if expected not in output:
         actual = next(line for line in output.splitlines() if 'Diener' in line)
-        pytest.fail(f"Expected Output: '{expected}' / Actual output: '{actual}'", pytrace=False)
+        fail(servant_count, week_count, expected, actual)
